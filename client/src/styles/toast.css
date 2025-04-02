@@ -1,0 +1,88 @@
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .toast {
+    min-width: 220px;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.3s ease, fadeOut 0.3s ease 3s;
+    box-shadow: 5px 3px 10px rgb(105, 102, 102);
+    cursor: pointer;
+  }
+  
+  .toast-success {
+    background-color: #4caf50;
+  }
+  
+  .toast-error {
+    background-color: #f44336;
+  }
+  
+  .toast-warning {
+    background-color: #ff9800;
+  }
+  
+  .toast-info {
+    background-color: #2196f3;
+  }
+  
+  .toast-hide {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .float-button-CTA {
+    position: fixed;
+    bottom: 110px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #15415c;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .float-button-WhatsApp{
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    background-color: #075e54;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  @keyframes zoomInOut {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
