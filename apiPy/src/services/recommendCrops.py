@@ -26,7 +26,7 @@ knn = KNeighborsClassifier(n_neighbors=5, metric='euclidean')  # Using Euclidean
 knn.fit(X_train, y_train)
 
 # Function to predict label and get top 5 nearest neighbors
-def predict_crop(N, P, K, temp, humidity, pH, rainfall):
+def predictCrop(N, P, K, temp, humidity, pH, rainfall):
     input_data = np.array([[N, P, K, temp, humidity, pH, rainfall]])
     input_data_scaled = scaler.transform(input_data)  # Apply the same scaling
     
@@ -41,13 +41,7 @@ def predict_crop(N, P, K, temp, humidity, pH, rainfall):
     predicted_label = knn.predict(input_data_scaled)[0]
     accuracy = (nearest_crops == predicted_label).sum() / 5 * 100  # Percentage match in top 5
     
-    # Print results
-    print(f"Predicted Crop: {predicted_label}")
-    print(f"Prediction Accuracy: {accuracy:.2f}%")
-    print("\nTop 5 Nearest Matches:")
-    
-    for i in range(5):
-        print(f"{i+1}. Crop: {nearest_crops[i]}, Distance: {nearest_distances[i]:.4f}")
+    # Create list of top 5 crops
+    top_5_crops = list(nearest_crops)        
+    return top_5_crops
 
-# Example usage:
-predict_crop(89, 42, 43, 20.87, 82.00, 6.50, 202.93)

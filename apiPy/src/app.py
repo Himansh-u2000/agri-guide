@@ -1,18 +1,27 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS  # Allow React to fetch data
-from getPopularBooks import recommend  # Import the recommend function
+from services.recommendCrops import predictCrop  # Import the recommend function
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-@app.route('/books/<name>', methods=['GET'])
-def get_books(name):
-    # Handle cases where the book name might not exist in the dataset
+@app.route('/top-ten-crops', methods=['GET'])
+def get_crops():
     try:
-        recommendations = recommend(name)
+        # Get query parameters from the request
+        N = float(request.args.get('N', 0))
+        P = float(request.args.get('P', 0))
+        K = float(request.args.get('K', 0))
+        temp = float(request.args.get('temp', 0))
+        humidity = float(request.args.get('humidity', 0))
+        pH = float(request.args.get('pH', 0))
+        rainfall = float(request.args.get('rainfall', 0))
+
+        # Call the prediction function with the parameters
+        recommendations = predictCrop(N, P, K, temp, humidity, pH, rainfall)
         return jsonify(recommendations)
-    except IndexError:
-        return jsonify({"error": "Book not found or insufficient data for recommendations"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Error in finding recommended crops: {str(e)}"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
