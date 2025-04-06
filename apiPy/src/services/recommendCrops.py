@@ -28,20 +28,23 @@ knn.fit(X_train, y_train)
 # Function to predict label and get top 5 nearest neighbors
 def predictCrop(N, P, K, temp, humidity, pH, rainfall):
     input_data = np.array([[N, P, K, temp, humidity, pH, rainfall]])
-    input_data_scaled = scaler.transform(input_data)  # Apply the same scaling
+    input_data_scaled = scaler.transform(input_data)
     
-    # Get the 5 nearest neighbors
     distances, indices = knn.kneighbors(input_data_scaled, n_neighbors=5)
     
-    # Fetch the nearest data points
-    nearest_crops = y[indices[0]]  # Labels of the 5 nearest neighbors
-    nearest_distances = distances[0]  # Corresponding distances
+    result = []
+    for idx, dist in zip(indices[0], distances[0]):
+        crop_data = df.iloc[idx]
+        result.append({
+            "crop": str(crop_data['label']),
+            "N": int(crop_data['N']),
+            "P": int(crop_data['P']),
+            "K": int(crop_data['K']),
+            "temperature": round(float(crop_data['temperature']), 2),
+            "humidity": round(float(crop_data['humidity']), 2),
+            "ph": round(float(crop_data['ph']), 2),
+            "rainfall": round(float(crop_data['rainfall']), 2),
+            "distance": round(float(dist), 2)
+        })
     
-    # Accuracy of prediction
-    predicted_label = knn.predict(input_data_scaled)[0]
-    accuracy = (nearest_crops == predicted_label).sum() / 5 * 100  # Percentage match in top 5
-    
-    # Create list of top 5 crops
-    top_5_crops = list(nearest_crops)        
-    return top_5_crops
-
+    return result
