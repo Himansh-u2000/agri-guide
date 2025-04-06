@@ -4,6 +4,6 @@ import { getRecomendedCrops } from "../controllers/recommendedCrops.controller.j
 const router = express.Router();
 
 
-router.get("/", getRecomendedCrops);
+router.get("/:state/:district", getRecomendedCrops);
 
 export default router;

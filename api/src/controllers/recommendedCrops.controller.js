@@ -3,7 +3,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const getRecomendedCrops = asyncHandler(async (req, res, next) => {
   const API_KEY = "06f75d2a642e7cbfe65fcd9547f619c0";
-  const cityInput = req.query.city || "Dhanbad";
+  const cityInput = req.params.district || "Dhanbad";
+  const stateInput = req.params.state || "Jharkhand";
   const { data } = await axios.get(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${API_KEY}&units=metric`
   );
