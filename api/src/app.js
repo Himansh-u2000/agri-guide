@@ -19,9 +19,11 @@ app.use(morgan("dev"));
 
 // import routes
 import priceTrendsRouter from "./routes/priceTrends.route.js";
+import recommendedCropsRouter from "./routes/recommendedCrops.route.js";
 
 // define routes
 app.use("/api/v1/price-trends", priceTrendsRouter);
+app.use("/api/v1/recommended-crops", recommendedCropsRouter);
 
 // app.use(express.static(path.join(__dirname, "../client", "/dist")));
 

@@ -1,10 +1,56 @@
-import PriceTrends from "../models/priceTrends.model.js";
+import { priceTrends } from "../services/priceTrends.service.js";
+import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { priceTrends } from "../services/priceTrends.service.js";
-import searchSortFilter from "../utils/searchSortFilter.js";
 
-export const createPriceTrends = asyncHandler(async (req, res, next) => {
+export const getState = asyncHandler(async (req, res, next) => {
+  const data = await priceTrends().getData();
+  const states = data.records.map((record) => {
+    return {
+      state: record.state,
+    };
+  });
+  const uniqueStates = [...new Set(states.map((state) => state.state))];
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, { states: uniqueStates }, "States fetched"));
+});
+
+export const getDistrict = asyncHandler(async (req, res, next) => {
+  const { state } = req.params;
+  if (!state) {
+    throw new ApiError(400, "State is required");
+  }
+  const data = await priceTrends().getData();
+  const districts = data.records.map((record) => {
+    return {
+      state: record.state,
+      district: record.district,
+    };
+  });
+  const filteredDistricts = districts.filter(
+    (district) => district.state.toLowerCase() === state.toLowerCase()
+  );
+
+  const uniqueDistricts = [
+    ...new Set(filteredDistricts.map((district) => district.district)),
+  ].map((district) => {
+    return { district };
+  });
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { districts: uniqueDistricts, total: uniqueDistricts.length },
+        "Districts fetched"
+      )
+    );
+});
+
+export const getPriceTrends = asyncHandler(async (req, res, next) => {
   const data = await priceTrends().getData();
   const pricetrends = data.records.map((record) => {
     return {
@@ -20,29 +66,18 @@ export const createPriceTrends = asyncHandler(async (req, res, next) => {
     };
   });
 
-  await PriceTrends.insertMany(pricetrends);
-
-  res
-    .status(201)
-    .json(new ApiResponse(201, pricetrends, "Price trends created"));
-});
-
-export const getPriceTrends = asyncHandler(async (req, res, next) => {
-  const { searchQuery, skip, limit, sort } = await searchSortFilter(
-    req.query || {},
-    "district"
+  const priceData = pricetrends.filter(
+    (record) =>
+      record.district.toLowerCase() === req.query.district.toLowerCase()
   );
-
-  console.log(req.query)
-  
-  const priceTrendsData = await PriceTrends.find({...searchQuery, district: req.query.district})
-    .sort(sort)
-    .skip(skip)
-    .limit(limit);
-
-  const total = await PriceTrends.countDocuments(searchQuery);
 
   res
     .status(200)
-    .json(new ApiResponse(200, { priceTrends: priceTrendsData, total }, "Price trends fetched"));
+    .json(
+      new ApiResponse(
+        200,
+        { priceTrends: priceData, total: priceData.length },
+        "Price trends fetched"
+      )
+    );
 });
