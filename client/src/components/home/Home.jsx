@@ -8,9 +8,9 @@ export default function Home() {
   console.log(priceData)
   return (
     <div className='bg-secondary '>
-      <Hero setPriceData={setPriceData}/>
-      <PriceTrends priceData={priceData}/>
-      <OurServices/>
+      <Hero setPriceData={setPriceData} />
+      <PriceTrends priceData={priceData} />
+      <OurServices />
     </div>
   )
 }

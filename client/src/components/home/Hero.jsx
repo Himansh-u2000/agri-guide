@@ -8,6 +8,8 @@ export default function Hero({ setPriceData }) {
   const [states, setStates] = useState([]);
   const [District, setDistrict] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const [data, setData] = useState([]);
   console.log(data);
 
@@ -15,6 +17,8 @@ export default function Hero({ setPriceData }) {
 
   // fetch all state data
   const handleStateSelection = async () => {
+    setLoading(true);
+    setStates([]);
     const data = await pricedata.getState();
     const stateData = data.map((item) => {
       return { label: item, value: item };
@@ -45,6 +49,7 @@ export default function Hero({ setPriceData }) {
     const data = await pricedata.getPriceData(value);
     setPriceData(data);
     setData(data);
+    setLoading(false);
   };
 
   return (

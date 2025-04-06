@@ -5,8 +5,8 @@ import TrendCardMobile from "./TrendCardMobile";
 import { cropImage } from "../../data/cropImageData";
 
 export default function PriceTrends({ priceData }) {
+  
   console.log(priceData);
-  // const crops = [
   //   {
   //     img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRb-XBVbvw2JOG73CAERD1qKVVeRQlTQrHO55WN2O4putZ-sW9m",
   //     name: "Wheat",
@@ -44,6 +44,7 @@ export default function PriceTrends({ priceData }) {
       max_price,
     };
   });
+  
   return (
     <div>
       <SubHeader label="Price Trends" />
@@ -51,8 +52,8 @@ export default function PriceTrends({ priceData }) {
         <div className="mx-auto max-w-7xl grid grid-cols-4 font-semibold p-4">
           <span>IMAGE</span>
           <span>NAME</span>
-          <span>LAST WEEK</span>
-          <span>TODAY</span>
+          <span>Min Price</span>
+          <span>Max Price</span>
         </div>
         <div className="mx-auto max-w-7xl flex-col gap-4 flex">
           {data.map((crop) => (

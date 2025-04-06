@@ -15,15 +15,17 @@ export default function TrendCardMobile({
         </h1>
       </div>
       <div className="flex flex-col gap-4 justify-center">
-        <div className='text-sm'>Last Week:{' '}
+        <div className='text-sm'>Min Price:{' '}
           <span >
             ₹
             {min_price}
             /Qt.
           </span>
         </div>
-        <div className='text-sm'>Today:{' '}
-          <span className={min_price > max_price ? 'text-red-500 text-base' : 'text-green-500 text-base'}>
+        <div className='text-sm'>Max Price:{' '}
+          <span
+          //  className={min_price > max_price ? 'text-red-500 text-base' : 'text-green-500 text-base'}
+          >
             ₹
             {max_price}
             /Qt.

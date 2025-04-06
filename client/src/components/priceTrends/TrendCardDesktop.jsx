@@ -15,7 +15,10 @@ export default function TrendCardDesktop({
       <span className='font-semibold '>
         ₹{min_price} /Qt.
       </span>
-      <span className={`font-semibold ${min_price > max_price ? 'text-red-500' : 'text-green-500'}`}>
+      <span 
+      className='font-semibold'
+      // className={`font-semibold ${min_price > max_price ? 'text-red-500' : 'text-green-500'}`}
+      >
         ₹{max_price} /Qt.
       </span>
     </div>
