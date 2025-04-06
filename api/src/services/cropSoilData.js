@@ -17,7 +17,7 @@ fs.createReadStream(csvFilePath)
 const cropSoilData = () => {
   const getDataByState = async (state) => {
     const stateData = crop_data.find(
-      (data) => data.state.toLowerCase() === state.toLowerCase()
+      (data) => data.STATE.toLowerCase() === state.toLowerCase()
     );
     console.log(stateData, "stateData");
 
