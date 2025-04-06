@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import Dropdown from '../../components/common/Dropdown'
+import React, { useState } from 'react';
+import Dropdown from '../../components/common/Dropdown';
 import CropPieChart from './CropPieChart ';
-import { Percent } from 'lucide-react';
 
 export default function CropAdvisor() {
   const districts = {
