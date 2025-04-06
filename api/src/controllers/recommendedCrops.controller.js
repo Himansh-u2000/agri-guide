@@ -19,15 +19,13 @@ export const getRecomendedCrops = asyncHandler(async (req, res, next) => {
   console.log(`N: ${N}, P: ${P}, K: ${K}, ph: ${ph}`);
   console.log(`Temperature: ${temperature}, Humidity: ${humidity}`);
 
+  const recommendedCrops = await axios.get(`http://127.0.0.1:5000/top-ten-crops?N=${N}&P=${P}&K=${K}&pH=${ph}&temp=${temperature}&humidity=${humidity}`);
+
+
+
   res.status(200).json({
     success: 200 <= 400,
-    data: {
-      city: data.name,
-      temperature: data.main.temp,
-      humidity: data.main.humidity,
-      windSpeed: data.wind.speed,
-      weather: data.weather[0].description,
-    },
+    data: recommendedCrops.data,
     message: "Weather data fetched",
   });
 });

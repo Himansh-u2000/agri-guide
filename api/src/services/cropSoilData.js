@@ -19,7 +19,6 @@ const cropSoilData = () => {
     const stateData = crop_data.find(
       (data) => data.STATE.toLowerCase() === state.toLowerCase()
     );
-    console.log(stateData, "stateData");
 
     if (!stateData) {
       throw new ApiError(404, "State data not found");
